@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santiago Aguiar te pide perdón 💔</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Corazones flotando */
+  .heart {
+    position: fixed;
+    bottom: -40px;
+    font-size: 24px;
+    opacity: 0;
+    animation: floatUp linear infinite;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: .8; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* Card principal */
+  .card {
+    position: fixed;
+    width: min(560px, 92vw);
+    text-align: center;
+    padding: 40px 32px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    box-shadow: 0 25px 60px rgba(180, 80, 130, 0.35);
+    transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+    z-index: 10;
+  }
+
+  .card.bounce {
+    animation: shake .5s ease, bounceAway .8s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translate(0, 0) rotate(0); }
+    20% { transform: translate(-12px, 6px) rotate(-3deg); }
+    40% { transform: translate(12px, -8px) rotate(3deg); }
+    60% { transform: translate(-10px, -6px) rotate(-2deg); }
+    80% { transform: translate(10px, 8px) rotate(2deg); }
+  }
+
+  @keyframes bounceAway {
+    0%   { transform: translate(0, 0) rotate(0); opacity: 1; }
+    60%  { transform: translate(var(--jx, 0), var(--jy, 0)) rotate(8deg); opacity: .9; }
+    100% { transform: translate(calc(var(--jx, 0) * -0.4), calc(var(--jy, 0) * -0.4)) rotate(0); opacity: 1; }
+  }
+
+  .emoji {
+    font-size: 90px;
+    display: block;
+    margin-bottom: 10px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+
+  h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 58px;
+    color: #d6336c;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    color: #ad4d73;
+    margin-bottom: 16px;
+  }
+
+  .msg {
+    font-size: 18px;
+    color: #5b3350;
+    font-weight: 600;
+    background: rgba(214, 51, 108, 0.08);
+    padding: 14px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+  }
+
+  .msg strong { color: #d6336c; }
+
+  .name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 34px;
+    color: #6c2b50;
+    margin: 6px 0 20px;
+  }
+
+  .name span {
+    display: inline-block;
+    font-weight: 700;
+  }
+
+  #question { font-size: 24px; font-weight: 700; color: #6c2b50; margin-bottom: 22px; }
+
+  #question small { display: block; font-size: 14px; font-weight: 500; color: #9c6b85; margin-top: 6px; }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    padding: 14px 40px;
+    transition: transform .2s ease, box-shadow .2s ease;
+    min-width: 120px;
+  }
+
+  .btn-yes {
+    background: linear-gradient(135deg, #d6336c, #ff6b9d);
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(214, 51, 108, 0.4);
+    animation: pulseBtn 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseBtn {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+  .btn-yes:hover { transform: scale(1.1); }
+
+  .btn-no {
+    background: #fff;
+    color: #6c2b50;
+    border: 2px solid #d6336c;
+    position: relative;
+    z-index: 30;
+  }
+
+  .tooltip-bob {
+    background: #fff;
+    color: #d6336c;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    position: fixed;
+    z-index: 50;
+    box-shadow: 0 8px 20px rgba(214, 51, 108, 0.3);
+opacity: 0;
+    transition: all .3s ease;
+    pointer-events: none;
+    animation: floatBob 2s ease-in-out infinite;
+  }
+  @keyframes floatBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .fade { opacity: 0 !important; }
+
+  .hearts-on {
+    animation: heartPop .8s ease forwards;
+  }
+  @keyframes heartPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 44px; }
+    .subtitle { font-size: 24px; }
+    .name { font-size: 28px; }
+    .card { padding: 30px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Corazones se generan con JS -->
+
+<!-- Card principal -->
+<div class="card" id="card">
+  <span class="emoji" id="emoji">🥺</span>
+  <h1>Santiago Aguiar</h1>
+  <div class="subtitle">te quiere pedir perdón</div>
+  <p class="msg" id="msg">
+    Perdóname por lo que hice... <br>
+    No era con <strong>malas intenciones</strong>, de verdad lo siento. 💔
+  </p>
+  <div class="name">Para ti, <span id="herName">mi amor</span> ❤️</div>
+  <div id="question">
+    ¿Me perdonas?
+    <small id="attemptText"></small>
+  </div>
+  <div class="buttons">
+    <button class="btn btn-yes" id="btnYes">SÍ, te perdono 💖</button>
+    <button class="btn btn-no" id="btnNo">NO 😤</button>
+  </div>
+</div>
+
+<div class="tooltip-bob" id="tooltip"></div>
+
+<script>
+  // Nombre de ella (se puede pasar por URL: index.html?nombre=Ana)
+  const params = new URLSearchParams(window.location.search);
+  const herName = params.get('nombre') || 'mi amor';
+  document.getElementById('herName').textContent = herName;
+
+  const card = document.getElementById('card');
+  const btnNo = document.getElementById('btnNo');
+  const btnYes = document.getElementById('btnYes');
+  const emoji = document.getElementById('emoji');
+  const msgEl = document.getElementById('msg');
+  const tooltip = document.getElementById('tooltip');
+  const attemptText = document.getElementById('attemptText');
+
+  const noTexts = [
+    '¿Segura? 😳',
+    '¿En serio? 🥺',
+    'Piénsalo bien... 😢',
+    'El botón de SÍ es más bonito 💕',
+    'Noo, no hagas eso 😭',
+    'Mira, hasta un perrito te lo pide 🐶',
+    'Te prometo que cambiaaaré 🙏',
+    'Este botón ya se cansó de huir 😤',
+    'Tus posibilidades: SÍ 99% | NO 1% 📊',
+    'El "NO" se quiere ir... pero vuelve 🏃‍♂️',
+    'Perdónameeeee 🥺💔',
+    'OK no insisto... mentira, SÍ insisto 😅',
+    'El amor gana: pulsa SÍ ❤️',
+  ];
+
+  let noCount = 0;
+
+  // Corazones flotantes
+  function spawnHeart() {
+    const hearts = ['❤', '💖', '💗', '💝', '💕', '💘', '💞', '❤', '💗', '💓'];
+    const h = document.createElement('span');
+    h.className = 'heart';
+    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = 14 + Math.random() * 26 + 'px';
+    h.style.animationDuration = 5 + Math.random() * 6 + 's';
+    h.style.opacity = .7;
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 12000);
+  }
+  setInterval(spawnHeart, 450);
+
+  // Mover el botón NO por toda la página
+  function moveNoButton() {
+    noCount++;
+    const pad = 10;
+    const btnW = btnNo.offsetWidth;
+    const btnH = btnNo.offsetHeight;
+    const x = pad + Math.random() * (window.innerWidth - btnW - pad * 2);
+    const y = pad + Math.random() * (window.innerHeight - btnH - pad * 2);
+    btnNo.style.position = 'fixed';
+    btnNo.style.left = x + 'px';
+    btnNo.style.top = y + 'px';
+    btnNo.style.opacity = 1;
+
+    // Mensaje que sale en el lugar donde estaba el botón
+    const idx = Math.min(noCount - 1, noTexts.length - 1);
+    tooltip.textContent = noTexts[idx];
+    tooltip.style.left = x + btnW / 2 - 60 + 'px';
+    tooltip.style.top = (y - 50) + 'px';
+    tooltip.style.opacity = 1;
+    setTimeout(() => { tooltip.style.opacity = 0; }, 1400);
+
+    // Cada "no" el mensaje principal cambia/sufre
+    if (noCount >= 1) attemptText.textContent = noCount + ' intento(s) de NO 😤';
+    if (noCount === 3)  { emoji.textContent = '😭'; msgEl.innerHTML = '¿De verdad me vas a decir que no?<br>Mi corazoncito no aguanta... 💔'; }
+    if (noCount === 5)  { emoji.textContent = '🐶'; msgEl.innerHTML = 'Mira, hasta se puso triste el emoticón.<br>Dale una oportunidad 🥺'; }
+    if (noCount === 7)  { emoji.textContent = '🕯️'; msgEl.innerHTML = 'Encendí una vela y lloré mirando tu foto.<br>Nah, exagero... pero casi 😢'; }
+    if (noCount === 9)  { emoji.textContent = '🤡'; msgEl.innerHTML = 'Pensándolo bien, el que sigue intentando soy yo.<br>PERO TE QUIERO MUCHO 🥺💕'; }
+    if (noCount === 12) { emoji.textContent = '😭'; msgEl.innerHTML = 'Vale, dejo de insistir...<br>📢 PERO EL BOTÓN SÍ TE SIGUE ESPERANDO 💖'; }
+
+    // La tarjeta entera salta por la página
+    card.classList.remove('bounce');
+    void card.offsetWidth;
+    const jx = (Math.random() * 300 - 150) * (Math.random() > 0.5 ? 1 : -1);
+    const jy = (Math.random() * 200 - 100) * (Math.random() > 0.5 ? 1 : -1);
+    card.style.setProperty('--jx', jx + 'px');
+    card.style.setProperty('--jy', jy + 'px');
+    card.classList.add('bounce');
+
+    // Mover la tarjeta a una posición aleatoria varias veces
+    let moves = 0;
+    const maxMoves = 3 + Math.min(noCount, 4);
+    const moveCard = () => {
+      if (moves >= maxMoves) {
+        // Volver al centro
+        card.style.left = '50%';
+        card.style.top = '50%';
+        card.style.transform = 'translate(-50%, -50%)';
+        return;
+      }
+      const width = card.offsetWidth, height = card.offsetHeight;
+      const nx = 20 + Math.random() * (window.innerWidth - width - 40);
+      const ny = 20 + Math.random() * (window.innerHeight - height - 40);
+      card.style.margin = '0';
+      card.style.left = nx + 'px';
+      card.style.top = ny + 'px';
+      card.style.transform = 'none';
+      moves++;
+      setTimeout(moveCard, 260);
+    };
+    moveCard();
+
+    // Crecer el botón SÍ
+    if (btnYes.offsetWidth < 300) {
+      btnYes.style.padding = (14 + noCount * 1.5) + 'px ' + (40 + noCount * 2.5) + 'px';
+    }
+  }
+
+  btnNo.addEventListener('click', moveNoButton);
+  btnNo.addEventListener('mouseenter', moveNoButton);
+
+  // SÍ: explosion de corazones y a la página del formulario
+  btnYes.addEventListener('click', () => {
+    // lluvia de corazones
+    for (let i = 0; i < 40; i++) {
+      setTimeout(spawnHeart, i * 30);
+    }
+    emoji.innerHTML = '💖';
+    msgEl.innerHTML = 'Sabía que me perdonarías. <br> Eres increíble. 🥹❤️';
+    document.getElementById('question').innerHTML = '¡Vamos a vernos!';
+    document.querySelector('.buttons').style.display = 'none';
+    document.querySelector('.name').innerHTML = 'Gracias por darme otra oportunidad, ' + herName + ' 💍';
+    setTimeout(() => {
+      window.location.href = 'si.html?nombre=' + encodeURIComponent(herName);
+    }, 2500);
+  });
+
+  // Evitar que el "no" se escape con el teclado también
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' && document.activeElement === btnNo) {
+      e.preventDefault();
+      btnNo.blur();
+    }
+  });
+</script>
+</body>
+</html>
